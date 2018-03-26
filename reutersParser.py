@@ -1,7 +1,5 @@
 from bs4 import BeautifulSoup
 
-from bs4 import BeautifulSoup
-
 VALID_PLACES = ['west-germany', 'usa', 'france', 'uk', 'canada', 'japan']
 
 
