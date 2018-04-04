@@ -15,6 +15,14 @@ def is_reuter_valid(reuter):
     return False
 
 
+def valid_places(places):
+    valid_places = new_soup.new_tag('places')
+    for place in places.find_all('d'):
+        if place.text in VALID_PLACES:
+            valid_places.append(place)
+    return valid_places
+
+
 new_soup = BeautifulSoup("<document></document>", "html.parser")
 
 for reuters_number_str in [str(i).zfill(3) for i in range(22)]:
@@ -26,10 +34,9 @@ for reuters_number_str in [str(i).zfill(3) for i in range(22)]:
     for reuter in reuters:
         if is_reuter_valid(reuter):
             new_tag_reuters = new_soup.new_tag("reuters")
-            new_tag_places = new_soup.new_tag("places")
+            new_tag_places = valid_places(reuter.places)
             new_tag_body = new_soup.new_tag("body")
 
-            new_tag_places.append(reuter.places)
             new_tag_body.append(reuter.find('text').find('body').text)
 
             new_tag_reuters.append(new_tag_places)
