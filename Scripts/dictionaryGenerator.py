@@ -1,7 +1,6 @@
 import operator
 from collections import Counter
 from bs4 import BeautifulSoup
-import string
 import re
 
 with open("reuters21578/reuters_train") as fp:

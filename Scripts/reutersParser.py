@@ -34,7 +34,7 @@ for reuters_number_str in [str(i).zfill(3) for i in range(22)]:
     reuters = soup.find_all('reuters')
     for reuter in reuters:
         if is_reuter_valid(reuter):
-            if soup_counter % 3 == 0:
+            if soup_counter % 3 != 0:
                 new_soup = train_soup
             else:
                 new_soup = test_soup
