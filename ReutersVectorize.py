@@ -25,7 +25,6 @@ class ReutersVectorize():
             neighbourhood += [StructNeighbour(vector=ReutersVectorize.generate_vector(word_count_dict,
                                                                                       reuters_dictionary_words),
                                               name=place_name)]
-            pass
         return neighbourhood
 
     @staticmethod

@@ -7,7 +7,10 @@ def is_reuter_valid(reuter):
     if reuter.find('text').find('body') is None:
         return False
     try:
-        for place in reuter.places.find_all('d'):
+        places = reuter.places.find_all('d')
+        if len(places) > 1:
+            return False
+        for place in places:
             if place.text in VALID_PLACES:
                 return True
     except TypeError:  # NoneType

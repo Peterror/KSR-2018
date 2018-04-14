@@ -36,34 +36,42 @@ def load_test_nbhd(desc_sort=True):
                                                    reuters_train_soup=reuters_train_soup)
 
 
-def thread_classifier(name, clasification, k, test_neighbourhood):
-    correct_classification = 0
-    incorrect_classification = 0
+def thread_classifier(name, clasification, kmin, kmax, test_neighbourhood):
+    correct_classification_array = [0 for i in range(kmin, kmax+1)]
+    incorrect_classification_array = [0 for i in range(kmin, kmax+1)]
+
     for test in test_neighbourhood:
-        if test.name == clasification(test, k):
-            correct_classification += 1
-        else:
-            incorrect_classification += 1
-        if (correct_classification + incorrect_classification) % 10 == 0:
-            print("correct: %i incorrect: %i" % (correct_classification, incorrect_classification))
+        classification_array = clasification(test, kmin, kmax)
+        for i in range(len(classification_array)):
+            if test.name == classification_array[i]:
+                correct_classification_array[i] += 1
+            else:
+                incorrect_classification_array[i] += 1
+                # print(test.name)
+                # print(classification_array[i])
+            if (correct_classification_array[i] + incorrect_classification_array[i]) % 25 == 0:
+                print("%s k=%i correct: %i incorrect: %i" % (name, i+kmin, correct_classification_array[i], incorrect_classification_array[i]))
     file = open(name, "w")
-    file.write("correct: %i incorrect: %i" % (correct_classification, incorrect_classification))
-    file.write('\n')
+    for i in range(kmax-kmin+1):
+        file.write("k=%i correct: %i incorrect: %i" % (i+kmin, correct_classification_array[i], incorrect_classification_array[i]))
+        file.write('\n')
     file.close()
 
 
-class myThread (threading.Thread):
-   def __init__(self, name, clasification, k, test_neighbourhood):
+class myThread(threading.Thread):
+    def __init__(self, name, clasification, kmin, kmax, test_neighbourhood):
         threading.Thread.__init__(self)
         self.name = name
         self.clasification = clasification
-        self.k = k
+        self.kmin = kmin
+        self.kmax = kmax
         self.test_neighbourhood = test_neighbourhood
 
-   def run(self):
-      print ("Starting " + self.name)
-      thread_classifier(self.name, self.clasification, self.k, self.test_neighbourhood)
-      print ("Exiting " + self.name)
+    def run(self):
+        print("Starting " + self.name)
+        thread_classifier(self.name, self.clasification, self.kmin, self.kmax, self.test_neighbourhood)
+        print("Exiting " + self.name)
+
 
 def main():
     neighbourhood = load_train_nbhd(desc_sort=True)
@@ -72,11 +80,13 @@ def main():
     names = ["chebyshev", "euklides", "street"]
 
     threads = []
-    for k in [5, 10]:
-        i = 0
-        for clasification in [classifier.classify_chebyshev, classifier.classify_euklides, classifier.classify_street]:
-            threads += [myThread(names[i]+str(k), clasification, k, test_neighbourhood)]
-            i += 1
+    i = 0
+    kmin = 1
+    kmax = 10
+    for clasification in [classifier.a_classify_chebyshev, classifier.a_classify_euklides, classifier.a_classify_street]:
+        threads += [myThread(names[i], clasification, kmin, kmax, test_neighbourhood)]
+        i += 1
+
     for thread in threads:
         thread.start()
     for thread in threads:
