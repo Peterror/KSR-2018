@@ -1,0 +1,4 @@
+10000 * vector of 200 elements distance calculations
+distance_chebyshev(s): 0.369021
+distance_euklides(s): 0.838048
+distance_street(s): 0.411024
