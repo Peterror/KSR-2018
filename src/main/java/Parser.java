@@ -32,5 +32,5 @@ public class Parser {
             object = reader.readLine();
         }
         System.out.print(listOfObjects);
-    }
+    }                             
 }
