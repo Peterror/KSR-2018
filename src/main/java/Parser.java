@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Parser {
 
-    public static void main(String[] args) throws IOException {
+    public static List<Entity> parser() throws IOException {
         FileReader file = new FileReader("database.dat");
         BufferedReader reader = new BufferedReader(file);
         String object = "";
@@ -28,9 +28,9 @@ public class Parser {
                     Double.parseDouble(list.get(26)),Integer.parseInt(list.get(27)),Integer.parseInt(list.get(28)),
                     Double.parseDouble(list.get(29)),Integer.parseInt(list.get(30)));
             listOfObjects.add(newEntity);
-            System.out.println(newEntity.toString());
+            //System.out.println(newEntity.toString());
             object = reader.readLine();
         }
-        System.out.print(listOfObjects);
+        return listOfObjects;
     }                             
 }

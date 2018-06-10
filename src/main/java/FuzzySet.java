@@ -6,8 +6,101 @@ public class FuzzySet extends Set
     Integer alphaSection=0;
     public FuzzySet(List<Entity> set, String name, BelongFunction function) {
         super(set, name, function);
+        countLevelOfBelong();
     }
 
+    public void countLevelOfBelong()
+    {
+        if (name=="tempOut")
+        {
+            for (Entity e:entities
+                 )
+            {
+                e.setLevelOfBelong(function.classify(e.getTempOut()));
+            }
+            return;
+        }
+        if (name=="outHum")
+        {
+            for (Entity e:entities
+                 )
+            {
+                e.setLevelOfBelong(function.classify(e.getOutHum()));
+            }
+            return;
+        }
+        if (name=="windSpeed")
+        {
+            for (Entity e:entities
+                 )
+            {
+                e.setLevelOfBelong(function.classify(e.getWindSpeed()));
+            }
+            return;
+        }
+        if (name=="bar")
+        {
+            for (Entity e:entities
+                 )
+            {
+                e.setLevelOfBelong(function.classify(e.getBar()));
+            }
+            return;
+        }
+        if (name=="rain")
+        {
+            for (Entity e:entities
+                 )
+            {
+                e.setLevelOfBelong(function.classify(e.getRain()));
+            }
+            return;
+        }
+        if (name=="rainRate")
+        {
+            for (Entity e:entities
+                 )
+            {
+                e.setLevelOfBelong(function.classify(e.getRainRate()));
+            }
+            return;
+        }
+        if (name=="inTemp")
+        {
+            for (Entity e:entities
+                 )
+            {
+                e.setLevelOfBelong(function.classify(e.getInTemp()));
+            }
+            return;
+        }
+        if (name=="inHum")
+        {
+            for (Entity e:entities
+                 )
+            {
+                e.setLevelOfBelong(function.classify(e.getInHum()));
+            }
+            return;
+        }
+        if (name=="hiTemp")
+        {
+            for (Entity e:entities
+                 )
+            {
+                e.setLevelOfBelong(function.classify(e.getHiTemp()));
+            }
+            return;
+        }
+        if (name=="loTemp")
+        {
+            for (Entity e:entities
+                 )
+            {
+                e.setLevelOfBelong(function.classify(e.getLowTemp()));
+            }
+        }
+    }
 
     public Set Complement() {
         FuzzySet complementSet = new FuzzySet(this.entities,
