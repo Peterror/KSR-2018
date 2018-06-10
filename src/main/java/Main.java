@@ -20,6 +20,8 @@ public class Main {
                 new LinguisticVariable("outside humidity",new String[]{"low","medium","high"},tempOutSet.entities);
         Set windSpeedSet = new FuzzySet(Entities,"windSpeed",windFunction);
         Set barSet = new FuzzySet(Entities,"bar",pressureFunction);
+        LinguisticVariable barLinguisticVariable =
+                new LinguisticVariable("pressure",new String[]{"low","medium","high"},tempOutSet.entities);
         Set rainSet = new FuzzySet(Entities,"rain",rainFunction);
         Set rainRateSet = new FuzzySet(Entities,"rainRate",rainRateFunction);
         Set inTempSet = new FuzzySet(Entities,"inTemp",temperatureFunction);
@@ -38,6 +40,12 @@ public class Main {
         System.out.println(outHumLinguisticVariable.RelativeQuantificator(0));
         System.out.println(outHumLinguisticVariable.RelativeQuantificator(1));
         System.out.println(outHumLinguisticVariable.RelativeQuantificator(2));
+        System.out.println(barLinguisticVariable.AbsoluteQuantificator(0));
+        System.out.println(barLinguisticVariable.AbsoluteQuantificator(1));
+        System.out.println(barLinguisticVariable.AbsoluteQuantificator(2));
+        System.out.println(barLinguisticVariable.RelativeQuantificator(0));
+        System.out.println(barLinguisticVariable.RelativeQuantificator(1));
+        System.out.println(barLinguisticVariable.RelativeQuantificator(2));
 
 
     }
