@@ -13,7 +13,7 @@ public abstract class Set {
 
     }
 
-    abstract public Set Complement(Set uberSet);
+    abstract public Set Complement();
 
     abstract public Set Sum(Set otherSet);
 

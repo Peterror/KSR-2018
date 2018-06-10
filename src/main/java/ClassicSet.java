@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 
 public class ClassicSet extends Set
@@ -7,36 +6,69 @@ public class ClassicSet extends Set
         super(set, name, function);
     }
 
-    public Set Complement(Set uberSet)
+    public Set Complement()
     {
-        List<Entity> compl = new ArrayList<Entity>();
-        for (Entity o:uberSet.entities)
+        ClassicSet complementSet = new ClassicSet(this.entities,"Complement of "+this.name,this.function);
+        for (Entity o:complementSet.entities)
         {
-            if (!entities.contains(o))
-                compl.add(o);
+            o.setLevelOfBelong(1-o.getLevelOfBelong());
         }
-        return new ClassicSet(compl,"Complement of " + this.name,this.function);
+        return complementSet;
     }
 
     public Set Sum(Set otherSet)
     {
-        List<Entity> sumList = entities;
-        for (Entity o:otherSet.entities)
-        {
-            if(!sumList.contains(o))
-                sumList.add(o);
+        ClassicSet sumSet = new ClassicSet(this.entities,"Complement of "+this.name,this.function);
+        for (Entity e:sumSet.entities
+                ) {
+            double temp = 0;
+            for (Entity o : entities
+                    ) {
+                if (o.getYear() == e.getYear() && o.getMonth() == e.getMonth() &&
+                        o.getDay() == e.getDay() && o.getHour() == e.getHour() &&
+                        o.getMinute() == e.getMinute())
+                    temp = o.getLevelOfBelong();
+            }
+            for (Entity o : otherSet.entities
+                    ) {
+                if (o.getYear() == e.getYear() && o.getMonth() == e.getMonth() &&
+                        o.getDay() == e.getDay() && o.getHour() == e.getHour() &&
+                        o.getMinute() == e.getMinute()) {
+                    if (o.getLevelOfBelong() > temp)
+                        temp = o.getLevelOfBelong();
+                }
+
+            }
+            e.setLevelOfBelong(temp);
         }
-        return new ClassicSet(sumList,"Sum of " + this.name + "and " + otherSet.name,this.function);
+        return sumSet;
     }
 
     public Set Intersection(Set otherSet)
     {
-        List<Entity> inter = new ArrayList<Entity>();
-        for (Entity o:otherSet.entities)
-        {
-            if(entities.contains(o))
-                inter.add(o);
+        ClassicSet interSet = new ClassicSet(this.entities,"Complement of "+this.name,this.function);
+        for (Entity e:interSet.entities
+                ) {
+            double temp = 0;
+            for (Entity o : entities
+                    ) {
+                if (o.getYear() == e.getYear() && o.getMonth() == e.getMonth() &&
+                        o.getDay() == e.getDay() && o.getHour() == e.getHour() &&
+                        o.getMinute() == e.getMinute())
+                    temp = o.getLevelOfBelong();
+            }
+            for (Entity o : otherSet.entities
+                    ) {
+                if (o.getYear() == e.getYear() && o.getMonth() == e.getMonth() &&
+                        o.getDay() == e.getDay() && o.getHour() == e.getHour() &&
+                        o.getMinute() == e.getMinute()) {
+                    if (o.getLevelOfBelong() < temp)
+                        temp = o.getLevelOfBelong();
+                }
+
+            }
+            e.setLevelOfBelong(temp);
         }
-        return new ClassicSet(inter,"Intersection of " + this.name + otherSet.name,this.function);
+        return interSet;
     }
 }
