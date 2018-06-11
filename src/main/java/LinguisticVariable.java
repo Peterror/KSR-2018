@@ -8,6 +8,18 @@ class LinguisticVariable{
 	private List<Entity> universe;
 	private Integer classifications[]={0,0,0};
 
+    public String[] getSetOfVariables() {
+        return setOfVariables;
+    }
+
+    public Integer[] getClassifications() {
+        return classifications;
+    }
+
+    public List<Entity> getUniverse() {
+        return universe;
+    }
+
     public LinguisticVariable(String name, String[] setOfVariables, List<Entity> universe) {
         this.name = name;
         this.setOfVariables = setOfVariables;
@@ -47,13 +59,13 @@ class LinguisticVariable{
 
     public String AbsoluteQuantificator(Integer index)
     {
-        return BigDecimal.valueOf(((double)classifications[index])/universe.size()*100.0).setScale
-                (2, RoundingMode.HALF_UP).doubleValue() + " % of days had " + setOfVariables[index] + " " + name + ".";
+        return "About " + BigDecimal.valueOf(((double)classifications[index])/universe.size()*100.0).setScale
+                (1, RoundingMode.HALF_UP).doubleValue() + "% ";
     }
 
     public String RelativeQuantificator(Integer index)
     {
         long round = Math.round((double)classifications[index]/1000);
-        return "About "+round*1000+" of days had "+setOfVariables[index] + " "+ name+".";
+        return "About "+round*1000+" ";
     }
 }

@@ -11,93 +11,113 @@ public class FuzzySet extends Set
 
     public void countLevelOfBelong()
     {
-        if (name=="tempOut")
+        if (name.equals("tempOut"))
         {
             for (Entity e:entities
                  )
             {
                 e.setLevelOfBelong(function.classify(e.getTempOut()));
+                if (e.getLevelOfBelong()>0)
+                    support++;
             }
             return;
         }
-        if (name=="outHum")
+        if (name.equals("outHum"))
         {
             for (Entity e:entities
                  )
             {
                 e.setLevelOfBelong(function.classify(e.getOutHum()));
+                if (e.getLevelOfBelong()>0)
+                    support++;
             }
             return;
         }
-        if (name=="windSpeed")
+        if (name.equals("windSpeed"))
         {
             for (Entity e:entities
                  )
             {
                 e.setLevelOfBelong(function.classify(e.getWindSpeed()));
+                if (e.getLevelOfBelong()>0)
+                    support++;
             }
             return;
         }
-        if (name=="bar")
+        if (name.equals("bar"))
         {
             for (Entity e:entities
                  )
             {
                 e.setLevelOfBelong(function.classify(e.getBar()));
+                if (e.getLevelOfBelong()>0)
+                    support++;
             }
             return;
         }
-        if (name=="rain")
+        if (name.equals("rain"))
         {
             for (Entity e:entities
                  )
             {
                 e.setLevelOfBelong(function.classify(e.getRain()));
+                if (e.getLevelOfBelong()>0)
+                    support++;
             }
             return;
         }
-        if (name=="rainRate")
+        if (name.equals("rainRate"))
         {
             for (Entity e:entities
                  )
             {
                 e.setLevelOfBelong(function.classify(e.getRainRate()));
+                if (e.getLevelOfBelong()>0)
+                    support++;
             }
             return;
         }
-        if (name=="inTemp")
+        if (name.equals("inTemp"))
         {
             for (Entity e:entities
                  )
             {
                 e.setLevelOfBelong(function.classify(e.getInTemp()));
+                if (e.getLevelOfBelong()>0)
+                    support++;
             }
             return;
         }
-        if (name=="inHum")
+        if (name.equals("inHum"))
         {
             for (Entity e:entities
                  )
             {
                 e.setLevelOfBelong(function.classify(e.getInHum()));
+                if (e.getLevelOfBelong()>0)
+                    support++;
             }
             return;
         }
-        if (name=="hiTemp")
+        if (name.equals("hiTemp"))
         {
             for (Entity e:entities
                  )
             {
                 e.setLevelOfBelong(function.classify(e.getHiTemp()));
+                if (e.getLevelOfBelong()>0)
+                    support++;
             }
             return;
         }
-        if (name=="loTemp")
+        if (name.equals("loTemp"))
         {
             for (Entity e:entities
                  )
             {
                 e.setLevelOfBelong(function.classify(e.getLowTemp()));
+                if (e.getLevelOfBelong()>0)
+                    support++;
             }
         }
     }
