@@ -1,9 +1,9 @@
-public class TriangleFunction extends BelongFunction {
-	String name;
+public class TriangleFunction extends MembershipFunction {
+	String label;
 	double a, b, c;
 	
-	public TriangleFunction(String name, double a, double b, double c){
-		this.name = name;
+	public TriangleFunction(String label, double a, double b, double c){
+		this.label = label;
 		this.a = a;
 		this.b = b;
 		this.c = c;
@@ -19,7 +19,7 @@ public class TriangleFunction extends BelongFunction {
 		}
 	}
 		
-	public String getName(){
-		return this.name;
+	public String getLabel(){
+		return this.label;
 	}
 }

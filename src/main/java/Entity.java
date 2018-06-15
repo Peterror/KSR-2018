@@ -33,7 +33,7 @@ public class Entity {
     private Integer windTx;
     private double issRecept;
     private Integer arcInt;
-    private double levelOfBelong = 0;
+    private double levelOfBelong = 0;  // Co to robi?
 
     public Entity(Integer year, Integer month, Integer day, Integer hour, Integer minute,
                   double tempOut, double hiTemp, double lowTemp, double outHum, double dewPt,

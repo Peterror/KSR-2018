@@ -1,37 +1,41 @@
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Summarizer {
 
-    private LinguisticVariable lingVar;
-    private String fullName;
-
-    public Summarizer(String name, String[] setOfVariables, FuzzySet universe, String fullName) {
-        lingVar = new LinguisticVariable(name,setOfVariables,universe.entities);
-        this.fullName=fullName;
-    }
-
-    public String Summarize(Integer index,boolean isQuantifierAbsolute)
+    public List<String> summarize(LinguisticVariable linguisticVariable, Quantifier quantifier, double[] universe)
     {
-        if(isQuantifierAbsolute)
-        {
-            QualityMeasuring quality = new QualityMeasuring(lingVar,isQuantifierAbsolute);
-            return lingVar.AbsoluteQuantificator(index) + "of days had " + lingVar.getSetOfVariables()[index] + " " + fullName + "    "+
-                    "[T1=" + BigDecimal.valueOf(quality.T1()).setScale(3, RoundingMode.HALF_UP)
-                    + " |T2=" + BigDecimal.valueOf(quality.T2()).setScale(3, RoundingMode.HALF_UP) +
-                    " |T5=" + BigDecimal.valueOf(quality.T5()).setScale(3, RoundingMode.HALF_UP) +
-                    " |Tavg=" + BigDecimal.valueOf(quality.T()).setScale(3, RoundingMode.HALF_UP)+"]";
-        }
-        else
-        {
-            QualityMeasuring quality = new QualityMeasuring(lingVar,isQuantifierAbsolute);
-            return lingVar.RelativeQuantificator(index) + "of days had " + lingVar.getSetOfVariables()[index] + " " + fullName+ "    "+
-                    "[T1=" + BigDecimal.valueOf(quality.T1()).setScale(3, RoundingMode.HALF_UP)
-                    + " |T2=" + BigDecimal.valueOf(quality.T2()).setScale(3, RoundingMode.HALF_UP) +
-                    " |T5=" + BigDecimal.valueOf(quality.T5()).setScale(3, RoundingMode.HALF_UP) +
-                    " |Tavg=" + BigDecimal.valueOf(quality.T()).setScale(3, RoundingMode.HALF_UP)+"]";
-        }
 
+        String summarizedString = "";
+        List<String> strings = new ArrayList<>();
+        List<MembershipFunction> linguisticMembershipFunctions = linguisticVariable.getMembershipFunctions();
+        List<MembershipFunction> quantifierMembershipFunctions = quantifier.getMembershipFunctions();
+        for(MembershipFunction linguisticMembershipFunction: linguisticMembershipFunctions){
+            for(MembershipFunction quantifierMembershipFunction: quantifierMembershipFunctions){
+                // creating summarization String
+                summarizedString =
+                        quantifier.getLabel() + " " // ABOUT
+                        + quantifierMembershipFunction.getLabel() + " " // 1000
+                        + linguisticVariable.getLabel() + " are " // temperatures are
+                        + linguisticMembershipFunction.getLabel(); // high
+
+                // measuring string correctness
+                Classification quantifierClassification = quantifier.classify(
+                        quantifierMembershipFunction,
+                        linguisticMembershipFunction,
+                        universe);
+
+                summarizedString +=
+                        " [T1=" +
+                        BigDecimal.valueOf(quantifierClassification.getMembership())
+                                .setScale(3, RoundingMode.HALF_UP)
+                        + "]";
+                strings.add(summarizedString);
+            }
+        }
+        return strings;
     }
 
 }

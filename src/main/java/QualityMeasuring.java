@@ -6,7 +6,7 @@ public class QualityMeasuring {
         this.linVar = linVar;
         isAbsolute=absolut;
     }
-
+/*
     public double T1()
     {
         double card=0;
@@ -40,6 +40,6 @@ public class QualityMeasuring {
     {
         return T1()*0.4+T2()*0.4+T5()*0.2;
     }
-
+*/
 
 }

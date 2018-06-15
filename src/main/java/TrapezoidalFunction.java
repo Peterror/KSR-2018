@@ -1,9 +1,9 @@
-public class TrapezoidalFunction extends BelongFunction {
-	String name;
+public class TrapezoidalFunction extends MembershipFunction {
+	String label;
 	double a, b, c, d;
 	
-	public TrapezoidalFunction(String name, double a, double b, double c, double d){
-		this.name = name;
+	public TrapezoidalFunction(String label, double a, double b, double c, double d){
+		this.label = label;
 		this.a = a;
 		this.b = b;
 		this.c = c;
@@ -22,7 +22,7 @@ public class TrapezoidalFunction extends BelongFunction {
 		}
 	}
 	
-	public String getName(){
-		return this.name;
+	public String getLabel(){
+		return this.label;
 	}
 }

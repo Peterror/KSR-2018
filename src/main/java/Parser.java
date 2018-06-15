@@ -6,15 +6,20 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Parser {
-
+    /**
+     * parses the top 10000 database.dat lines
+     *
+     * @return List of parsed Entity objects
+     * @throws IOException in case of file io access problem
+     */
     public static List<Entity> parser() throws IOException {
         FileReader file = new FileReader("database.dat");
         BufferedReader reader = new BufferedReader(file);
-        String object = "";
-        List<Entity> listOfObjects = new ArrayList<Entity>();
-        object = reader.readLine();
+        String object;
+        List<Entity> listOfObjects = new ArrayList<>();
         for (int i=0;i<10000;i++)
         {
+            object = reader.readLine();
             List<String> list = Arrays.asList(object.split(", "));
             Entity newEntity = new Entity(Integer.parseInt(list.get(0)), Integer.parseInt(list.get(1)),
                     Integer.parseInt(list.get(2)), Integer.parseInt(list.get(3)), Integer.parseInt(list.get(4)),
@@ -29,7 +34,6 @@ public class Parser {
                     Double.parseDouble(list.get(29)),Integer.parseInt(list.get(30)));
             listOfObjects.add(newEntity);
             //System.out.println(newEntity.toString());
-            object = reader.readLine();
         }
         return listOfObjects;
     }                             
