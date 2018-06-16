@@ -50,6 +50,91 @@ public class QualityMeasuring {
         }
         return 0;
     }
+
+    public double T2()
+    {
+        if(labelAssociatedToUniverse2_S2==null)
+        {
+            return 1.0 - labelAssociatedToUniverse1_S1.support(universe1)/universe1.length;
+        }
+        return 0;
+    }
+
+    public double T2AND()
+    {
+        if(labelAssociatedToUniverse2_S2 != null)
+        {
+            return 1.0 - Math.sqrt((labelAssociatedToUniverse1_S1.support(universe1)/universe1.length)*
+                    (labelAssociatedToUniverse2_S2.support(universe2)/universe2.length));
+        }
+        return 0;
+    }
+
+    public double T3()
+    {
+        if(labelAssociatedToUniverse2_S2==null)
+        {
+            return labelAssociatedToUniverse1_S1.support(universe1)/universe1.length;
+        }
+        return 0;
+    }
+    public double T3AND()
+    {
+        if(labelAssociatedToUniverse2_S2 != null)
+        {
+            return labelAssociatedToUniverse1_S1.supportOfIntersection(labelAssociatedToUniverse2_S2,universe1)
+                    /labelAssociatedToUniverse2_S2.support(universe2);
+        }
+        return 0;
+    }
+
+    public double T4()
+    {
+        if(labelAssociatedToUniverse2_S2==null)
+        {
+            double r1=0;
+            for (double value:universe1)
+            {
+                if(labelAssociatedToUniverse1_S1.classify(value)>0)
+                    r1++;
+            }
+            r1 /= universe1.length;
+            return r1-T3();
+        }
+        return 0;
+    }
+
+    public double T4AND()
+    {
+        if(labelAssociatedToUniverse2_S2 != null)
+        {
+            double r1=0;
+            double r2=0;
+            for (double value:universe1)
+            {
+                if (labelAssociatedToUniverse1_S1.classify(value)>0)
+                    r1++;
+            }
+            for (double value:universe2)
+            {
+                if (labelAssociatedToUniverse2_S2.classify(value)>0)
+                    r2++;
+            }
+            r1 /= universe1.length;
+            r2 /= universe2.length;
+            return r1*r2/T3AND();
+        }
+        return 0;
+    }
+
+    public double T5()
+    {
+        if(labelAssociatedToUniverse2_S2==null)
+            return 2*0.5;
+        else
+            return 2*Math.pow(0.5,2);
+    }
+
 /*
     public double T2()
     {

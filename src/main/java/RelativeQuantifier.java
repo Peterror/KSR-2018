@@ -18,6 +18,8 @@ public class RelativeQuantifier extends Quantifier{
                 getLabel() + " " + quantifierFunction_Q.getLabel(),
                 quantifierFunction_Q.classify(relativeS1CorrectnessCount)  // T_1
         );
+
+
     }
 
     @Override

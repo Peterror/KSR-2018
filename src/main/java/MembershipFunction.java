@@ -17,6 +17,29 @@ abstract class MembershipFunction {
         }
 	    return sum;
     }
+    public double support(double[] universe){
+	    double supp = 0;
+	    for (double value:universe){
+	        if (classify(value)>0)
+            {
+                supp++;
+            }
+        }
+        return supp;
+    }
+
+    public double supportOfIntersection(MembershipFunction membershipFunction2, double[] universe)
+    {
+        double supp = 0;
+        for (double value:universe){
+            if (classify(value) > 0 && membershipFunction2.classify(value)>0)
+            {
+                supp++;
+            }
+        }
+        return supp;
+    }
+
 	public double cardinalOfIntersection(MembershipFunction membershipFunction, double[] universe){
         double sum = 0;
         for(double value: universe){
