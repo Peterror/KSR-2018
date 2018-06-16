@@ -30,10 +30,15 @@ public class Summarizer {
                         universe);
 
                 summarizedString +=
-                        " [T1=" +
-                        BigDecimal.valueOf(qm.T1())
-                                .setScale(3, RoundingMode.HALF_UP)
-                        + "]";
+                        " [T1=" + String.format("%.3f",qm.T1()) + " ; "
+                                + "T2=" + String.format("%.3f",qm.T2()) + " ; "
+                                + "T3=" + String.format("%.3f",qm.T3()) + " ; "
+                                + "T4=" + String.format("%.3f",qm.T4()) + " ; "
+                                + "T5=" + String.format("%.3f",qm.T5()) + " ; "
+                                + "T6=" + String.format("%.3f",qm.T6()) + " ; "
+                                + "T7=" + String.format("%.3f",qm.T7()) + " ; "
+                                + "T8=" + String.format("%.3f",qm.T8())
+                                +"]";
                 strings.add(summarizedString);
             }
         }
@@ -75,10 +80,15 @@ public class Summarizer {
                             universe2);
 
                     summarizedString +=
-                            " [T1=" +
-                                    BigDecimal.valueOf(qm.T1AND())
-                                            .setScale(3, RoundingMode.HALF_UP)
-                                    + "]";
+                            " [T1=" + String.format("%.3f",qm.T1AND()) + " ; "
+                                    + "T2=" + String.format("%.3f",qm.T2AND()) + " ; "
+                                    + "T3=" + String.format("%.3f",qm.T3AND()) + " ; "
+                                    + "T4=" + String.format("%.3f",qm.T4AND()) + " ; "
+                                    + "T5=" + String.format("%.3f",qm.T5()) + " ; "
+                                    + "T6=" + String.format("%.3f",qm.T6()) + " ; "
+                                    + "T7=" + String.format("%.3f",qm.T7()) + " ; "
+                                    + "T8=" + String.format("%.3f",qm.T8AND())
+                                    +"]";
                     strings.add(summarizedString);
                 }
             }

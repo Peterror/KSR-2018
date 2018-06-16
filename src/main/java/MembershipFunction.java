@@ -28,10 +28,16 @@ abstract class MembershipFunction {
         return supp;
     }
 
-    public double supportOfIntersection(MembershipFunction membershipFunction2, double[] universe)
+    public double supportOfIntersection(MembershipFunction membershipFunction2, double[] universe1, double[] universe2)
     {
         double supp = 0;
-        for (double value:universe){
+        for (double value:universe1){
+            if (classify(value) > 0 && membershipFunction2.classify(value)>0)
+            {
+                supp++;
+            }
+        }
+        for (double value:universe2){
             if (classify(value) > 0 && membershipFunction2.classify(value)>0)
             {
                 supp++;

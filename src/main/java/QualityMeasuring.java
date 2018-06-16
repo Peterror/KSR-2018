@@ -82,7 +82,7 @@ public class QualityMeasuring {
     {
         if(labelAssociatedToUniverse2_S2 != null)
         {
-            return labelAssociatedToUniverse1_S1.supportOfIntersection(labelAssociatedToUniverse2_S2,universe1)
+            return labelAssociatedToUniverse1_S1.supportOfIntersection(labelAssociatedToUniverse2_S2,universe1,universe2)
                     /labelAssociatedToUniverse2_S2.support(universe2);
         }
         return 0;
@@ -133,6 +133,35 @@ public class QualityMeasuring {
             return 2*0.5;
         else
             return 2*Math.pow(0.5,2);
+    }
+
+    public double T6()
+    {
+        return 1.0-quantifierFunction_Q.support(universe1)/universe1.length;
+    }
+
+    public double T7()
+    {
+        return 1.0 - quantifierFunction_Q.cardinal(universe1)/universe1.length;
+    }
+
+    public double T8()
+    {
+        if(labelAssociatedToUniverse2_S2==null)
+        {
+            return 1.0 - labelAssociatedToUniverse1_S1.cardinal(universe1)/universe1.length;
+        }
+        return 0;
+    }
+
+    public double T8AND()
+    {
+        if(labelAssociatedToUniverse2_S2 != null)
+        {
+            return 1.0 - Math.sqrt((labelAssociatedToUniverse1_S1.cardinal(universe1)/universe1.length)*
+                    (labelAssociatedToUniverse2_S2.cardinal(universe2)/universe2.length));
+        }
+        return 0;
     }
 
 /*
