@@ -24,11 +24,56 @@ abstract class MembershipFunction {
         }
 	    return sum;
     }
+
 	public double cardinalOfUnion(MembershipFunction membershipFunction, double[] universe){
         double sum = 0;
         for(double value: universe){
             sum += classifyUnion(membershipFunction, value);
         }
 	    return sum;
+    }
+
+    public double classifyIntersectionInDifferentDomains(
+            MembershipFunction differentDomainMembershipFunction,
+            double thisDomainValue,
+            double differentDomainValue
+    ){
+        return Math.min(classify(thisDomainValue), differentDomainMembershipFunction.classify(differentDomainValue));
+    }
+
+    public double classifyUnionInDifferentDomains(
+            MembershipFunction differentDomainMembershipFunction,
+            double thisDomainValue,
+            double differentDomainValue
+    ){
+        return Math.max(classify(thisDomainValue), differentDomainMembershipFunction.classify(differentDomainValue));
+    }
+    public double cardinalOfIntersectionInDifferentDomains(
+            MembershipFunction differentDomainMembershipFunction,
+            double[] thisUniverse,
+            double[] differentUniverse
+    ){
+        double sum = 0;
+        for(int i = 0; i < thisUniverse.length; i++){
+            sum += classifyIntersectionInDifferentDomains(
+                    differentDomainMembershipFunction,
+                    thisUniverse[i],
+                    differentUniverse[i]);
+        }
+        return sum;
+    }
+    public double cardinalOfUnionInDifferentDomains(
+            MembershipFunction differentDomainMembershipFunction,
+            double[] thisUniverse,
+            double[] differentUniverse
+    ){
+        double sum = 0;
+        for(int i = 0; i < thisUniverse.length; i++){
+            sum += classifyIntersectionInDifferentDomains(
+                    differentDomainMembershipFunction,
+                    thisUniverse[i],
+                    differentUniverse[i]);
+        }
+        return sum;
     }
 }

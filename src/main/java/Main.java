@@ -8,13 +8,24 @@ public class Main {
     public static void main(String[] args) throws IOException {
         PrintWriter saveData = new PrintWriter("statistics.txt");
         Parser parser = new Parser();
-        List<Entity> Entities = parser.parser();
-        double[] universe = new double[Entities.size()];
+        List<Entity> universe = parser.parser();
+        double[] highestTemperatureDomain = new double[universe.size()];
+        double[] lowestTemperatureDomain = new double[universe.size()];
+        double[] outsideHumidityDomain = new double[universe.size()];
+        double[] insideHumidityDomain = new double[universe.size()];
+        double[] windSpeedDomain = new double[universe.size()];
+        double[] pressureDomain = new double[universe.size()];
+        double[] rainHeihtDomain = new double[universe.size()];
+        double[] rainRateDomain = new double[universe.size()];
+
         // summaryzator
         Summarizer summarizer = new Summarizer();
-        // Quantifier dla calego programu
+
+        /*
+         * Quantifier dla calego programu(uniwersum)
+         */
         List<MembershipFunction> absQuantifierMembershipFunctionList = new ArrayList<>();
-        for(int i = 0; i < Entities.size()/1000 + 1; i++){
+        for(int i = 0; i < universe.size()/1000 + 1; i++){
             int temp_value = i * 1000;
             absQuantifierMembershipFunctionList.add(
                     new TriangleFunction(
@@ -40,50 +51,155 @@ public class Main {
             );
         }
         Quantifier relQuantifier = new RelativeQuantifier("About", relQuantifierMembershipFunctionList);
-
-        // Funkcje trapezoidalne dla temperatury
-        MembershipFunction highTemperature = new TrapezoidalFunction("high",25,30,100,100);
-        MembershipFunction mediumTemperature = new TrapezoidalFunction("medium",7,15,20,30);
-        MembershipFunction lowTemperature = new TrapezoidalFunction("low",-100,-100,0,15);
-        // Zmienna lingwistyczna dla temperatury
-        List<MembershipFunction> linguisticMembershipFunctionList = new ArrayList<MembershipFunction>(){{
-            add(highTemperature);
-            add(mediumTemperature);
-            add(lowTemperature);
-        }};
-        LinguisticVariable temperature = new LinguisticVariable(
-                "temperatures",
-                linguisticMembershipFunctionList
-        );
-
-        // Step1 uniwersum dla temperatury na zewnatrz
-        for(int i = 0; i < Entities.size(); i++){
-            universe[i] = Entities.get(i).getTempOut();
-        }
-        // Step2a Zapisanie wartosci z sumaryzatora relatywnego
-        for(String line: summarizer.summarize(temperature, relQuantifier, universe)){
-            saveData.println(line);
-        }
-        // Step2b Zapisanie wartosci z sumaryzatora absolutnego
-        for(String line: summarizer.summarize(temperature, absQuantifier, universe)){
-            saveData.println(line);
-        }
-
         /*
+         * Deklaracja funkcji klasyfikujacych dane zjawisko
+         */
+        // Funkcje trapezoidalne dla temperatury
+        List<MembershipFunction> temperatureMembershipFunctionList = new ArrayList<MembershipFunction>(){{
+            add(new TrapezoidalFunction("high",25,30,100,100));
+            add(new TrapezoidalFunction("medium",7,15,20,30));
+            add(new TrapezoidalFunction("low",-100,-100,0,15));
+        }};
         // Funkcje trapezoidalne dla wilgotnosci
-        MembershipFunction humidityFunction = new TrapezoidalFunction("humidity",0,70,100,120);
-
+        List<MembershipFunction> humidityMembershipFunctionList = new ArrayList<MembershipFunction>(){{
+            add(new TrapezoidalFunction("high",70,85,100,100));
+            add(new TrapezoidalFunction("medium",35,60,70,85));
+            add(new TrapezoidalFunction("low",0,0,35,60));
+        }};
         // Funkcje trapezoidalne dla predkosci wiatru
-        MembershipFunction windFunction = new TrapezoidalFunction("wind speed",0,80,180,300);
+        List<MembershipFunction> windSpeedMembershipFunctionList = new ArrayList<MembershipFunction>(){{
+            add(new TrapezoidalFunction("high",38,49,200,200));
+            add(new TrapezoidalFunction("medium",11,19,38,49));
+            add(new TrapezoidalFunction("low",0,0,11,19));
+        }};
 
         // Funkcje trapezoidalne dla cisnienia
-        MembershipFunction pressureFunction = new TriangleFunction("pressure",970,1040,1110);
+        List<MembershipFunction> pressureMembershipFunctionList = new ArrayList<MembershipFunction>(){{
+            add(new TrapezoidalFunction("high",1020,1040,1200,1200));
+            add(new TrapezoidalFunction("medium",980,1000,1020,1040));
+            add(new TrapezoidalFunction("low",0,0,980,1000));
+        }};
 
         // Funkcje trapezoidalne dla deszczu
-        MembershipFunction rainFunction = new TriangleFunction("rain",0,0.5,1);
+        List<MembershipFunction> rainMembershipFunctionList = new ArrayList<MembershipFunction>(){{
+            add(new TrapezoidalFunction("huge",3,6,100,100));
+            add(new TrapezoidalFunction("average",0.5,1,3,4));
+            add(new TrapezoidalFunction("minimal",0,0,0.5,1));
+        }};
 
         // Funkcje trapezoidalne dla czestotliwosci opadow
-        MembershipFunction rainRateFunction = new TrapezoidalFunction("rain rate",0,4,1000000,2000000);*/
+        List<MembershipFunction> rainRateMembershipFunctionList = new ArrayList<MembershipFunction>(){{
+            add(new TrapezoidalFunction("high",3,6,100,100));
+            add(new TrapezoidalFunction("average",2,4,3,4));
+            add(new TrapezoidalFunction("small",0,0,2,4));
+        }};
+
+        /*
+         * Deklaracja zmiennych lingwistycznych i przypisanie im funkcji klasyfikujacych dane zjawisko
+         */
+        // Zmienna lingwistyczna dla najwyzszej temperatury
+        LinguisticVariable highestTemperature = new LinguisticVariable(
+                "highest temperature",
+                temperatureMembershipFunctionList
+        );
+        // Zmienna lingwistyczna dla najwyzszej temperatury
+        LinguisticVariable lowestTemperature = new LinguisticVariable(
+                "lowest temperature",
+                temperatureMembershipFunctionList
+        );
+        // Zmienna lingwistyczna dla wilgotnosci
+        LinguisticVariable insideHumidity = new LinguisticVariable(
+                "inside humidity",
+                humidityMembershipFunctionList
+        );
+        // Zmienna lingwistyczna dla wilgotnosci
+        LinguisticVariable outsideHumidity = new LinguisticVariable(
+                "inside humidity",
+                humidityMembershipFunctionList
+        );
+        // Zmienna lingwistyczna dla cisnienia
+        LinguisticVariable pressure = new LinguisticVariable(
+                "pressure",
+                pressureMembershipFunctionList
+        );
+        // Zmienna lingwistyczna dla wysokosci opadow
+        LinguisticVariable rainHeight = new LinguisticVariable(
+                "rain height",
+                rainMembershipFunctionList
+        );
+        // Zmienna lingwistyczna dla czestotliwosci opadow
+        LinguisticVariable rainRate = new LinguisticVariable(
+                "rain rate",
+                rainRateMembershipFunctionList
+        );
+        // Zmienna lingwistyczna dla predkosci wiatru
+        LinguisticVariable windSpeed = new LinguisticVariable(
+                "wind speed",
+                windSpeedMembershipFunctionList
+        );
+
+        /*
+         * Inicjalizacja domen zjawisk
+         */
+        // domena dla najwyzszej temperatury na zewnatrz
+        for(int i = 0; i < universe.size(); i++){
+            highestTemperatureDomain[i] = universe.get(i).getHiTemp();
+        }
+        // domena dla najnizszej temperatury na zewnatrz
+        for(int i = 0; i < universe.size(); i++){
+            lowestTemperatureDomain[i] = universe.get(i).getLowTemp();
+        }
+        // domena dla wewnetrznej wilgotnosci
+        for(int i = 0; i < universe.size(); i++){
+            insideHumidityDomain[i] = universe.get(i).getInHum();
+        }
+        // domena dla zewnetrznej wilgotnosci
+        for(int i = 0; i < universe.size(); i++){
+            outsideHumidityDomain[i] = universe.get(i).getOutHum();
+        }
+        // domena dla cisnienia
+        for(int i = 0; i < universe.size(); i++){
+            pressureDomain[i] = universe.get(i).getBar();
+        }
+        // domena dla wysokosci opadow
+        for(int i = 0; i < universe.size(); i++){
+            rainHeihtDomain[i] = universe.get(i).getRain();
+        }
+        // domena dla czestotliwosci opadow
+        for(int i = 0; i < universe.size(); i++){
+            rainRateDomain[i] = universe.get(i).getRainRate();
+        }
+        // domena dla predkosci wiatru
+        for(int i = 0; i < universe.size(); i++){
+            windSpeedDomain[i] = universe.get(i).getWindSpeed();
+        }
+
+
+
+        // Zapisanie wartosci z sumaryzatora relatywnego
+        for(String line: summarizer.summarize(highestTemperature, relQuantifier, highestTemperatureDomain)){
+            saveData.println(line);
+        }
+        saveData.println();
+
+        // Zapisanie wartosci z sumaryzatora absolutnego
+        for(String line: summarizer.summarize(highestTemperature, absQuantifier, highestTemperatureDomain)){
+            saveData.println(line);
+        }
+        saveData.println();
+
+        // Zapisanie wartosci z sumaryzatora absolutnego
+        for(String line: summarizer.summarize(rainHeight, absQuantifier, rainHeihtDomain)){
+            saveData.println(line);
+        }
+        saveData.println();
+
+        // Zapisanie wartosci z sumaryzatora absolutnego
+        for(String line: summarizer.summarizeAND(rainHeight, highestTemperature, absQuantifier, rainHeihtDomain, highestTemperatureDomain)){
+            saveData.println(line);
+        }
+        saveData.println();
+
 
 
         saveData.close();

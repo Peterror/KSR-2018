@@ -5,6 +5,7 @@ public class RelativeQuantifier extends Quantifier{
         super(label, membershipFunctions);
     }
 
+    @Override
     public Classification classify(
             MembershipFunction quantifierFunction_Q,
             MembershipFunction labelAssociatedToUniverse_S1,
@@ -17,5 +18,15 @@ public class RelativeQuantifier extends Quantifier{
                 getLabel() + " " + quantifierFunction_Q.getLabel(),
                 quantifierFunction_Q.classify(relativeS1CorrectnessCount)  // T_1
         );
+    }
+
+    @Override
+    public Classification classifyAND(MembershipFunction quantifierFunction_Q,
+                                      MembershipFunction labelAssociatedToUniverse1_S1,
+                                      MembershipFunction labelAssociatedToUniverse2_S2,
+                                      double[] universe1,
+                                      double[] universe2
+    ) {
+        return null;
     }
 }
