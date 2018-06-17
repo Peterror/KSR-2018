@@ -91,8 +91,8 @@ public class Main {
 
         // Funkcje trapezoidalne dla czestotliwosci opadow
         List<MembershipFunction> rainRateMembershipFunctionList = new ArrayList<MembershipFunction>(){{
-            add(new TrapezoidalFunction("high",3,6,100,100));
-            add(new TrapezoidalFunction("average",2,4,3,4));
+            add(new TrapezoidalFunction("high",4,6,100,100));
+            add(new TrapezoidalFunction("average",2,3,4,5));
             add(new TrapezoidalFunction("small",0,0,2,4));
         }};
 
