@@ -55,7 +55,7 @@ public class QualityMeasuring {
     {
         if(labelAssociatedToUniverse2_S2==null)
         {
-            return 1.0 - labelAssociatedToUniverse1_S1.support(universe1)/universe1.length;
+            return 1.0 - labelAssociatedToUniverse1_S1.sumSupport(universe1)/universe1.length;
         }
         return 0;
     }
@@ -64,27 +64,30 @@ public class QualityMeasuring {
     {
         if(labelAssociatedToUniverse2_S2 != null)
         {
-            return 1.0 - Math.sqrt((labelAssociatedToUniverse1_S1.support(universe1)/universe1.length)*
-                    (labelAssociatedToUniverse2_S2.support(universe2)/universe2.length));
+            return 1.0 - Math.sqrt((labelAssociatedToUniverse1_S1.sumSupport(universe1)/universe1.length)*
+                    (labelAssociatedToUniverse2_S2.sumSupport(universe2)/universe2.length));
         }
         return 0;
     }
 
     public double T3()
     {
-        return labelAssociatedToUniverse1_S1.support(universe1)/universe1.length;
+        return labelAssociatedToUniverse1_S1.sumSupport(universe1)/universe1.length;
     }
 
     public double T3u2()
     {
-        return labelAssociatedToUniverse2_S2.support(universe2)/universe2.length;
+        return labelAssociatedToUniverse2_S2.sumSupport(universe2)/universe2.length;
     }
     public double T3AND()
     {
         if(labelAssociatedToUniverse2_S2 != null)
         {
-            return labelAssociatedToUniverse1_S1.supportOfIntersection(labelAssociatedToUniverse2_S2,universe1,universe2)
-                    /labelAssociatedToUniverse2_S2.support(universe2);
+            return labelAssociatedToUniverse1_S1.sumSupportOfIntersectionInDifferentDomains(
+                    labelAssociatedToUniverse2_S2,
+                    universe1,
+                    universe2
+            ) / labelAssociatedToUniverse2_S2.sumSupport(universe2);
         }
         return 0;
     }
@@ -138,7 +141,7 @@ public class QualityMeasuring {
 
     public double T6()
     {
-        return 1.0-quantifierFunction_Q.support(universe1)/universe1.length;
+        return 1.0-quantifierFunction_Q.sumSupport(universe1)/universe1.length;
     }
 
     public double T7()

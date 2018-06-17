@@ -17,28 +17,10 @@ abstract class MembershipFunction {
         }
 	    return sum;
     }
-    public double support(double[] universe){
+    public double sumSupport(double[] universe){
 	    double supp = 0;
 	    for (double value:universe){
 	        if (classify(value)>0)
-            {
-                supp++;
-            }
-        }
-        return supp;
-    }
-
-    public double supportOfIntersection(MembershipFunction membershipFunction2, double[] universe1, double[] universe2)
-    {
-        double supp = 0;
-        for (double value:universe1){
-            if (classify(value) > 0 && membershipFunction2.classify(value)>0)
-            {
-                supp++;
-            }
-        }
-        for (double value:universe2){
-            if (classify(value) > 0 && membershipFunction2.classify(value)>0)
             {
                 supp++;
             }
@@ -77,6 +59,22 @@ abstract class MembershipFunction {
     ){
         return Math.max(classify(thisDomainValue), differentDomainMembershipFunction.classify(differentDomainValue));
     }
+
+    public double sumSupportOfIntersectionInDifferentDomains(
+            MembershipFunction membershipFunction2,
+            double[] universe1,
+            double[] universe2
+    ){
+        double supp = 0;
+        for (int i = 0; i < universe1.length; i++ ){
+            if (classifyIntersectionInDifferentDomains(membershipFunction2, universe1[i], universe2[i]) > 0)
+            {
+                supp++;
+            }
+        }
+        return supp;
+    }
+
     public double cardinalOfIntersectionInDifferentDomains(
             MembershipFunction differentDomainMembershipFunction,
             double[] thisUniverse,

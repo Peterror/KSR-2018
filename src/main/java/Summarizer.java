@@ -42,7 +42,7 @@ public class Summarizer {
                                 + "T10=" + String.format("%.3f",qm.T10()) + " ; "
                                 + "T11=" + String.format("%.3f",qm.T11()) + " ; "
                                 + "T=" + String.format("%.3f",qm.T())
-                                +"]";
+                                +"]\\\\";
                 strings.add(summarizedString);
             }
         }
@@ -96,7 +96,7 @@ public class Summarizer {
                                     + "T10=" + String.format("%.3f",qm.T10AND()) + " ; "
                                     + "T11=" + String.format("%.3f",qm.T11()) + " ; "
                                     + "T=" + String.format("%.3f",qm.T())
-                                    +"]";
+                                    +"]\\\\";
                     strings.add(summarizedString);
                 }
             }
