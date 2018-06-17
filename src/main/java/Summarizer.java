@@ -37,7 +37,11 @@ public class Summarizer {
                                 + "T5=" + String.format("%.3f",qm.T5()) + " ; "
                                 + "T6=" + String.format("%.3f",qm.T6()) + " ; "
                                 + "T7=" + String.format("%.3f",qm.T7()) + " ; "
-                                + "T8=" + String.format("%.3f",qm.T8())
+                                + "T8=" + String.format("%.3f",qm.T8()) + " ; "
+                                + "T9=" + String.format("%.3f",qm.T9()) + " ; "
+                                + "T10=" + String.format("%.3f",qm.T10()) + " ; "
+                                + "T11=" + String.format("%.3f",qm.T11()) + " ; "
+                                + "T=" + String.format("%.3f",qm.T())
                                 +"]";
                 strings.add(summarizedString);
             }
@@ -87,7 +91,11 @@ public class Summarizer {
                                     + "T5=" + String.format("%.3f",qm.T5()) + " ; "
                                     + "T6=" + String.format("%.3f",qm.T6()) + " ; "
                                     + "T7=" + String.format("%.3f",qm.T7()) + " ; "
-                                    + "T8=" + String.format("%.3f",qm.T8AND())
+                                    + "T8=" + String.format("%.3f",qm.T8AND()) + " ; "
+                                    + "T9=" + String.format("%.3f",qm.T9AND()) + " ; "
+                                    + "T10=" + String.format("%.3f",qm.T10AND()) + " ; "
+                                    + "T11=" + String.format("%.3f",qm.T11()) + " ; "
+                                    + "T=" + String.format("%.3f",qm.T())
                                     +"]";
                     strings.add(summarizedString);
                 }
