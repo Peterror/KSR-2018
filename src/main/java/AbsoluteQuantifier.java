@@ -27,12 +27,14 @@ public class AbsoluteQuantifier extends Quantifier{
             double[] universe1,
             double[] universe2
     ){
-        //TODO
-        double absoluteS1CorrectnessCount = labelAssociatedToUniverse1_S1.cardinal(universe1);
+        double absoluteS1S2CorrectnessCount = labelAssociatedToUniverse1_S1.cardinalOfIntersectionInDifferentDomains(
+                labelAssociatedToUniverse2_S2,
+                universe1,
+                universe2);
 
         return new Classification(
                 getLabel() + " " + quantifierFunction_Q.getLabel(),
-                quantifierFunction_Q.classify(absoluteS1CorrectnessCount)  // T_1
+                quantifierFunction_Q.classify(absoluteS1S2CorrectnessCount)  // T_1
         );
     }
 }

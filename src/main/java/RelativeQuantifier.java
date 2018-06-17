@@ -29,6 +29,15 @@ public class RelativeQuantifier extends Quantifier{
                                       double[] universe1,
                                       double[] universe2
     ) {
-        return null;
+        double relativeS1S2CorrectnessCount = labelAssociatedToUniverse1_S1.cardinalOfIntersectionInDifferentDomains(
+                labelAssociatedToUniverse2_S2,
+                universe1,
+                universe2);
+        relativeS1S2CorrectnessCount /= (double)universe1.length;
+
+        return new Classification(
+                getLabel() + " " + quantifierFunction_Q.getLabel(),
+                quantifierFunction_Q.classify(relativeS1S2CorrectnessCount)  // T_1
+        );
     }
 }

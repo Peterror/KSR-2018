@@ -133,7 +133,7 @@ public class QualityMeasuring {
         if(labelAssociatedToUniverse2_S2==null)
             return 2*0.5;
         else
-            return 2*Math.pow(0.5,2);
+            return 2*0.5*0.5;
     }
 
     public double T6()
